@@ -47,11 +47,11 @@ def text(message):
             number = get_text(message.text)
         problem_ = problem.replace('x', str(number))
         print(problem_)
-	try:
-        	if eval(problem_) == True:
-            		bot.send_message(message.chat.id, 'True')
-	except:
-		pass
+        try:
+            if eval(problem_) == True:
+                bot.send_message(message.chat.id, 'True')
+        except:
+            pass
 
 
 @bot.message_handler(content_types=['photo'])
@@ -66,10 +66,10 @@ def photo(message):
     problem_ = problem.replace('x', str(number))
     print(problem_)
     try:
-    	if eval(problem_) == True:
-        	bot.send_message(message.chat.id, 'True')
+        if eval(problem_) == True:
+            bot.send_message(message.chat.id, 'True')
     except:
-	pass
+        pass
 
 
 bot.polling() # запускаем бота
