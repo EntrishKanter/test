@@ -10,7 +10,7 @@ from telebot import types
 ####################################################
 
 MODE_ID, MODE = False, False
-bot = telebot.TeleBot('5242165763:AAHJzd4_fm8lEonVRhU316SQ-AoHrytITZ8') 
+bot = telebot.TeleBot('5272793248:AAGrzLdalPEdhZNDRXRit_Hp5MIix7lPFmA') 
 problems, current_problem = [], 'x > 0'
 current_ID = 'x > 0'
 
