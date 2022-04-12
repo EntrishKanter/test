@@ -18,8 +18,6 @@ current_ID = 'x > 0'
 #DEF 
 ####################################################
 
-
-
 IMAGE = 't.png'
 def GetText(text):
     number = ''
@@ -35,16 +33,18 @@ def GetText(text):
             pass
     return number
 def TextFromImageID():
-    Picture = Image.open(IMAGE)
-    txt, x, result = pytesseract.image_to_string(Picture).split(sep=' '), 0, []
+    txt = pytesseract.image_to_string('t.png', config=r'--oem 3 --psm 6').split()
+    x = 0
+    result = []
     while x < len(txt):
         if txt[x] == '©':
             result.append(GetText(str(txt[x+1])))
         x += 1
     return result
+    return result
 def TextFromImage():
     Picture = Image.open(IMAGE)
-    result = GetText(pytesseract.image_to_string(Picture))
+    result = GetText(pytesseract.image_to_string(Picture, config=r'--oem 3 --psm 6'))
     return result
 def get_set(text):
     try:
@@ -75,6 +75,7 @@ def MENU(message):
                     menu = types.ReplyKeyboardMarkup(row_width=1, resize_keyboard=True, one_time_keyboard=False)
                     for problem in problems:
                         menu.add(types.KeyboardButton(text=f"set {problem}"))
+                    menu.add(types.KeyboardButton(text=f"ID"))
                     bot.send_message(message.chat.id, f'К работе', reply_markup=menu)
                 elif message.text == 'Добавить':
                     def add(message):
@@ -154,6 +155,13 @@ def straight(message):
     if message.text == 'Выкл. ID':
         MODE_ID = False
         MENU(message)
+    elif message.text == 'ID':
+        if MODE_ID == False:
+            MODE_ID = True
+        else:
+            MODE_ID = False
+                
+
     elif get_set(message.text) == 'set ':
         current_problem = message.text[4:]
     else:
