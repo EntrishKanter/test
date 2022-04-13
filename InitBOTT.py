@@ -10,13 +10,14 @@ from telebot import types
 ####################################################
 
 MODE_ID, MODE = False, False
-bot = telebot.TeleBot('5272793248:AAGrzLdalPEdhZNDRXRit_Hp5MIix7lPFmA') 
+bot = telebot.TeleBot('5242165763:AAHJzd4_fm8lEonVRhU316SQ-AoHrytITZ8') 
 problems, current_problem = [], 'x > 0'
 current_ID = 'x > 0'
 
 ####################################################
 #DEF 
 ####################################################
+
 
 IMAGE = 't.png'
 def GetText(text):
@@ -37,10 +38,9 @@ def TextFromImageID():
     x = 0
     result = []
     while x < len(txt):
-        if txt[x] == '©':
+        if txt[x] == '©' or txt[x] == '(#)':
             result.append(GetText(str(txt[x+1])))
         x += 1
-    return result
     return result
 def TextFromImage():
     Picture = Image.open(IMAGE)
