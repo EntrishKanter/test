@@ -38,7 +38,7 @@ def TextFromImageID():
     x = 0
     result = []
     while x < len(txt):
-        if txt[x] == '©' or txt[x] == '(#)':
+        if txt[x] == '©' or txt[x] == '(#)' or txt[x] == 'oO' or txt[x] == 'o0':
             result.append(GetText(str(txt[x+1])))
         x += 1
     return result
