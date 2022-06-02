@@ -1,4 +1,3 @@
-from pickle import FALSE, TRUE
 import threading
 from telebot import types
 from flask import Flask
@@ -72,13 +71,14 @@ def repost(message):
 @bot.callback_query_handler(func=lambda call: True)
 def callback_query(call):
     DATA_SCHEME = files.GETDATA('schemes')
-    for data in DATA_SCHEME[str(call.data).split(sep="&")[1]]['buttons']:
-        if call.data == data['callback']:
+    for data_ in DATA_SCHEME[str(call.data).split(sep="&")[1]]['buttons']:
+        if call.data == data_['callback']:
             files.SETDATA('ref_user', call.from_user.id, f"0&{call.data}")
             amount = DATA_SCHEME[str(call.data).split(sep="&")[1]]['amount']
-            url = f"https://global24.pro/wid/c2w/?lang=ru&callbackUrl=http//:127.0.0.1:5000/{str(call.from_user.id)}/scheme_2&cardAmount={amount}&quittanceDest=my@mail.com&email=my@mail.com&walletId=12345678901234&blocked=1&type=c2w"
+            scheme = str(str(call.data).split(sep="&")[1])
+            url = f"https://global24.pro/wid/c2w/?lang=ru&callbackUrl=http//:{data.IP_HOST}:{data.IP_PORT}/{str(call.from_user.id)}/{scheme}&cardAmount={amount}&quittanceDest=my@mail.com&email=my@mail.com&walletId=12345678901234&blocked=1&type=c2w"
             ref_url = f't.me/TESTF2Bot?start={call.from_user.id}u{str(call.data).split(sep="&")[1]}'
-            bot.send_message(call.from_user.id, str(data["reposnce"]).replace('{{url}}', url).replace('{{ref_url}}', ref_url))
+            bot.send_message(call.from_user.id, str(data_["reposnce"]).replace('{{url}}', url).replace('{{ref_url}}', ref_url))
 
 
 @app.route('/<name>/<scheme>')
@@ -95,9 +95,15 @@ def index(name, scheme):
 
 
 def StartUpApp():
-    app.run(host=data.IP_HOST, port=data.IP_PORT)
+    try:
+        app.run(host=data.IP_HOST, port=data.IP_PORT)
+    except:
+        StartUpApp()
 def StartUpBot():
-    bot.polling()
+    try:
+        bot.polling()
+    except:
+        StartUpBot()
 
 if __name__ == '__main__':
     threading.Thread(target=StartUpBot).start()
