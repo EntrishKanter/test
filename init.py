@@ -2,7 +2,7 @@ import telebot, sqlite3
 from telebot import types
 from databases import *
 
-bot = telebot.TeleBot(token='5459776331:AAHHOOQURUTgfvThkaELynHjjxolvkyAQqQ', parse_mode='Markdown')
+bot = telebot.TeleBot(token='5595846062:AAF5f_xvJzNEDw-uxdouT3KRpqxbcQ2ZlK', parse_mode='Markdown')
 
 
 
